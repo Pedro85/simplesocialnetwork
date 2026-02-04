@@ -31,3 +31,4 @@ bin/
 .idea/
 main.java.com.clarityai.simplesocialnetwork.SimpleSocialNetwork.iml
 SimpleSocialNetwork.iml
+target/
