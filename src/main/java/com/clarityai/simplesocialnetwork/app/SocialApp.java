@@ -18,6 +18,7 @@ public class SocialApp {
         System.out.println("   <user name> -> <message>          (post a message) ");
         System.out.println("   <user name>                       (view someones' timeline) ");
         System.out.println("   <user name> follows <user name>   (follow user) ");
+        System.out.println("   <user name> unfollows <user name> (unfollow user) ");
         System.out.println("   <user name> wall                  (view wall) ");
         System.out.println("   exit                              (exit) \n");
 
@@ -35,7 +36,7 @@ public class SocialApp {
 
         scanner.close();
 
-        System.out.println("Bye!");
+        System.out.println("Come back soon!");
     }
 
 }

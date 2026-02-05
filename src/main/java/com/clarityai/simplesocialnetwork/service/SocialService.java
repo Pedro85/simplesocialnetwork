@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 
 public class SocialService {
 
-    private final SocialRepository socialRepository;
+    private final SocialRepository repository;
 
     private final PostCommand postCommand;
     private final FollowCommand followCommand;
@@ -23,12 +23,12 @@ public class SocialService {
     private Matcher matcher;
 
     public SocialService() {
-        this.socialRepository = new SocialRepository();
-        this.postCommand = new PostCommand(socialRepository);
-        this.followCommand = new FollowCommand(socialRepository);
-        this.unfollowCommand = new UnfollowCommand(socialRepository);
-        this.wallCommand = new WallCommand(socialRepository);
-        this.readCommand = new ReadCommand(socialRepository);
+        this.repository = new SocialRepository();
+        this.postCommand = new PostCommand(repository);
+        this.followCommand = new FollowCommand(repository);
+        this.unfollowCommand = new UnfollowCommand(repository);
+        this.wallCommand = new WallCommand(repository);
+        this.readCommand = new ReadCommand(repository);
     }
 
     public void commandHandler(final String input) {
@@ -37,13 +37,16 @@ public class SocialService {
             postCommand.handleCommand(matcher);
         } else if ((matcher = Commands.PATTERN_FOLLOWS.matcher(input)).matches()) {
             followCommand.handleCommand(matcher);
-        } else if ((matcher = Commands.PATTERN_FOLLOWS.matcher(input)).matches()) {
+        } else if ((matcher = Commands.PATTERN_UNFOLLOWS.matcher(input)).matches()) {
             unfollowCommand.handleCommand(matcher);
         } else if ((matcher = Commands.PATTERN_WALL.matcher(input)).matches()) {
             wallCommand.handleCommand(matcher);
         } else if (!Commands.EXIT.equalsIgnoreCase(input) && (matcher = Commands.PATTERN_READ.matcher(input)).matches()) {
             readCommand.handleCommand(matcher);
         }
+    }
 
+    public SocialRepository getRepository() {
+        return repository;
     }
 }

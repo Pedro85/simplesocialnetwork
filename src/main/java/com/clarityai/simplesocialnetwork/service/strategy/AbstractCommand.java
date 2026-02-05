@@ -51,5 +51,4 @@ public abstract class AbstractCommand implements ICommand {
         long hours = duration.toHours();
         return hours + " hour" + (hours > 1 ? "s" : "") + " ago";
     }
-
 }
