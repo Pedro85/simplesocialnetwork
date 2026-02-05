@@ -49,6 +49,16 @@ class SimpleSocialNetworkTest {
     }
 
     @Test
+    void unfollowUser() {
+
+    }
+
+    @Test
+    void unfollowUserFail() {
+
+    }
+
+    @Test
     void viewWall() {
 
     }

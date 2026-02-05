@@ -1,7 +1,7 @@
 package com.clarityai.simplesocialnetwork.service.strategy;
 
-import com.clarityai.simplesocialnetwork.repository.SocialRepository;
+import java.util.regex.Matcher;
 
 public interface ICommand {
-    void handleCommand(String command, SocialRepository repository);
+    void handleCommand(Matcher matcher);
 }
