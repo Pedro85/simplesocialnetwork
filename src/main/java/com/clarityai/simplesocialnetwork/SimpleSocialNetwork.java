@@ -1,4 +1,10 @@
+package com.clarityai.simplesocialnetwork;
 
-void main() {
+import com.clarityai.simplesocialnetwork.app.SocialApp;
+
+public class SimpleSocialNetwork {
+    void main() {
+        new SocialApp().run();
+    }
 
 }
