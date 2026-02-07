@@ -18,7 +18,7 @@ public class UnfollowCommand extends AbstractCommand {
 
         if (follower.equals(followee)) {
             System.out.println("You cannot unfollow yourself.");
-        }  else if (!repository.getUsersFollowing().get(follower).contains(followee)) {
+        }  else if (!repository.userHasFollowees(follower) || !repository.getUsersFollowing().get(follower).contains(followee)) {
             System.out.println("You are not following " + followee + ".");
         } else {
             repository.removeFollower(follower, followee);
