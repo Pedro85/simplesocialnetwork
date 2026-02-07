@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,93 +27,115 @@ class SimpleSocialNetworkTest {
     }
 
     @Test
-    void postMessage() {
+    void testPostMessage() {
         service.commandHandler("Ana -> I love the weather today");
+
         assertNotNull(repository.getUserMessages("Ana"));
         assertNotEquals(new ArrayList<>(), repository.getUserMessages("Ana"));
         assertEquals(1, repository.getUserMessages("Ana").size());
     }
 
     @Test
-    void postMessages() {
+    void testPostMessages() {
         service.commandHandler("Ana -> I am tired of this weather");
         service.commandHandler("Ana -> It´s raining again");
+
         assertNotNull(repository.getUserMessages("Ana"));
         assertNotEquals(new ArrayList<>(), repository.getUserMessages("Ana"));
         assertEquals(2, repository.getUserMessages("Ana").size());
     }
 
     @Test
-    void readMessages() {
+    void testReadMessages() {
         service.commandHandler("Ana -> I am tired of this weather");
         service.commandHandler("Ana -> It´s raining again");
+
         List<Message> messages = repository.getUserMessages("Ana");
+
         assertEquals(2, messages.size());
         assertEquals("I am tired of this weather", messages.get(0).message());
         assertEquals("It´s raining again", messages.get(1).message());
     }
 
     @Test
-    void readMessagesNonExistingUser() {
+    void testReadMessagesNonExistingUser() {
         assertTrue(repository.getUserMessages("Bob").isEmpty());
     }
 
     @Test
-    void followUser() {
+    void testFollowUser() {
         service.commandHandler("Ana follows Bob");
+
         assertTrue(repository.getUserFollowees("Ana").contains("Bob"));
     }
 
     @Test
-    void followUserFail() {
+    void testFollowUserFail() {
         service.commandHandler("Ana follows Ana");
-        assertTrue(!repository.getUserFollowees("Ana").contains("Ana"));
+
+        assertFalse(repository.getUserFollowees("Ana").contains("Ana"));
     }
 
     @Test
-    void unfollowUser() {
+    void testUnfollowUser() {
         service.commandHandler("Ana follows Bob");
+
         assertTrue(repository.getUserFollowees("Ana").contains("Bob"));
+
         service.commandHandler("Ana unfollows Bob");
-        assertTrue(!repository.getUserFollowees("Ana").contains("Bob"));
+
+        assertFalse(repository.getUserFollowees("Ana").contains("Bob"));
     }
 
     @Test
-    void unfollowUserFail() {
+    void testUnfollowUserFail() {
         service.commandHandler("Ana follows Bob");
+
         assertTrue(repository.getUserFollowees("Ana").contains("Bob"));
+
         service.commandHandler("Ana unfollows Bobe");
+
         assertTrue(repository.getUserFollowees("Ana").contains("Bob"));
     }
 
     @Test
-    void viewWall() {
+    void testViewWall() {
         service.commandHandler("Ana -> I am tired of this weather");
         service.commandHandler("Ana -> It´s raining again");
         service.commandHandler("Bob -> I love rain");
+
         assertEquals(2, repository.getWallMessages("Ana").size());
         assertEquals(1, repository.getWallMessages("Bob").size());
+
         service.commandHandler("Ana follows Bob");
+
         assertEquals(3, repository.getWallMessages("Ana").size());
         assertEquals(1, repository.getWallMessages("Bob").size());
+
         service.commandHandler("Ana unfollows Bob");
         service.commandHandler("Bob follows Ana");
+
         assertEquals(2, repository.getWallMessages("Ana").size());
         assertEquals(3, repository.getWallMessages("Bob").size());
     }
 
     @Test
-    void viewWallFail() {
+    void testViewWallFail() {
         service.commandHandler("Ana -> I am tired of this weather");
         service.commandHandler("Ana -> It´s raining again");
         service.commandHandler("Bob -> I love rain");
+
         assertEquals(2, repository.getWallMessages("Ana").size());
         assertEquals(1, repository.getWallMessages("Bob").size());
+
         service.commandHandler("Ana follows Bob");
+
         assertEquals(3, repository.getWallMessages("Ana").size());
         assertEquals(1, repository.getWallMessages("Bob").size());
+
         service.commandHandler("Ana unfollows Bob");
         service.commandHandler("Bob follows Ana");
+
         assertNotEquals(3, repository.getWallMessages("Ana").size());
         assertNotEquals(1, repository.getWallMessages("Bob").size());
     }
