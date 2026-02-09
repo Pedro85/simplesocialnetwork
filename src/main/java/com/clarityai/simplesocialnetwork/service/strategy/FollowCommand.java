@@ -4,12 +4,27 @@ import com.clarityai.simplesocialnetwork.repository.SocialRepository;
 
 import java.util.regex.Matcher;
 
+/**
+ * Command handler for following other users.
+ * Processes follow commands in the format: "follower follows followee"
+ */
 public class FollowCommand extends AbstractCommand {
 
+    /**
+     * Constructs a FollowCommand with the specified repository.
+     *
+     * @param repository The social repository to manage follower relationships
+     */
     public FollowCommand(SocialRepository repository) {
         super(repository);
     }
 
+    /**
+     * Handles the follow command by creating a following relationship between two users.
+     * Validates that users cannot follow themselves and prevents duplicate follows.
+     *
+     * @param matcher The regex matcher containing the follower (group 1) and followee (group 2) usernames
+     */
     @Override
     public void handleCommand(Matcher matcher) {
 

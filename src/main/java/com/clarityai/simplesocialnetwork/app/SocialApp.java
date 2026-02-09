@@ -5,8 +5,17 @@ import com.clarityai.simplesocialnetwork.util.Commands;
 
 import java.util.Scanner;
 
+/**
+ * Main application class that handles user interaction for the Simple Social Network.
+ * Manages the command-line interface and processes user input through various social network commands.
+ */
 public class SocialApp {
 
+    /**
+     * Runs the social network application, displaying the interface and processing user commands.
+     * The application continues to run until the user enters the 'exit' command.
+     * Supported commands include posting messages, following/unfollowing users, reading timelines, and viewing walls.
+     */
     public void run() {
         final SocialService service = new SocialService();
 

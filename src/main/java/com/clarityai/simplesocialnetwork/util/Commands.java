@@ -2,6 +2,10 @@ package com.clarityai.simplesocialnetwork.util;
 
 import java.util.regex.Pattern;
 
+/**
+ * Utility class containing command constants and regex patterns for parsing user input.
+ * Defines all available commands in the social network and their corresponding pattern matchers.
+ */
 public class Commands {
 
     // Command keywords
