@@ -4,6 +4,7 @@ import com.clarityai.simplesocialnetwork.model.Message;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,10 +24,11 @@ public class MessageFormatUtil {
      * @return A list of formatted message strings ready for display
      */
     public static List<String> formatMessages(final List<Message> messages, final boolean showAuthor) {
-        // Sort messages
-        messages.sort(Comparator.comparing(Message::timestamp).reversed());
+        // Create a copy to avoid mutating the input list and then sort messages by timestamp in reverse order
+        final List<Message> sortedMessages = new ArrayList<>(messages);
+        sortedMessages.sort(Comparator.comparing(Message::timestamp).reversed());
 
-        return messages.stream()
+        return sortedMessages.stream()
                 .map(msg -> {
                     String timeAgo = formatTimeAgo(msg.timestamp());
                     if (showAuthor) {
